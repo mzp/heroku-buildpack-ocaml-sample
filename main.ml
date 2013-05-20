@@ -31,7 +31,7 @@ let on_request notification =
    * whenever there is space in the response buffer for additional output.
    * Currently, data is fully buffered (first
    * in the transactional buffer, then in the response buffer), and only when
-   * the message is complete, the transmission to the client starts. 
+   * the message is complete, the transmission to the client starts.
    * By generating only the next part of the response when there is space in
    * the response buffer, the advanced implementation can prevent that the
    * buffers become large.
@@ -41,7 +41,7 @@ let on_request notification =
   ( try
       let env = notification # environment in
       let cgi =
-	Netcgi_common.cgi_with_args 
+	Netcgi_common.cgi_with_args
 	  (new Netcgi_common.cgi)
 	  (env :> Netcgi.cgi_environment)
 	  Netcgi.buffered_transactional_outtype
@@ -78,7 +78,7 @@ let serve_connection ues fd =
   flush stdout;
   let config = Nethttpd_engine.default_http_engine_config in
   Unix.set_nonblock fd;
-  let http_engine = 
+  let http_engine =
     new Nethttpd_engine.http_engine ~on_request_header () config fd ues in
   ()
 ;;
@@ -95,26 +95,26 @@ let rec accept ues srv_sock_acc =
 			        if srv_sock_acc # multiple_connections then (
 			          serve_connection ues fd;
 			          accept ues srv_sock_acc
-                                   ) else 
+                                   ) else
 				  srv_sock_acc # shut_down())
                         ~is_error:(fun _ -> srv_sock_acc # shut_down())
                         acc_engine;
 ;;
 
-let start() =
+let start port =
   (* We set up [lstn_engine] whose only purpose is to create a server socket listening
    * on the specified port. When the socket is set up, [accept] is called.
    *)
-  printf "Listening on port 8765\n";
+  printf "Listening on port %d\n" port;
   flush stdout;
   let ues = Unixqueue.create_unix_event_system () in
   (* Unixqueue.set_debug_mode true; *)
   let opts = { Uq_engines.default_listen_options with
-		 Uq_engines.lstn_backlog = 20;
-		 Uq_engines.lstn_reuseaddr = true } in
+     Uq_engines.lstn_backlog = 20;
+     Uq_engines.lstn_reuseaddr = true } in
   let lstn_engine =
     Uq_engines.listener
-      (`Socket(`Sock_inet(Unix.SOCK_STREAM, Unix.inet_addr_any, 8765) ,opts)) ues in
+      (`Socket(`Sock_inet(Unix.SOCK_STREAM, Unix.inet_addr_any, port) ,opts)) ues in
   Uq_engines.when_state ~is_done:(accept ues) lstn_engine;
   (* Start the main event loop. *)
   Unixqueue.run ues
@@ -143,6 +143,10 @@ let conf_debug() =
     Netsys_win32.Debug.debug_c_wrapper true
 ;;
 
-Netsys_signal.init();
-conf_debug();
-start();;
+let _ =
+  let port =
+    int_of_string Sys.argv.(1)
+  in
+  Netsys_signal.init();
+  conf_debug();
+  start port
