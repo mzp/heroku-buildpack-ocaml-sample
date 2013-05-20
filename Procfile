@@ -1,1 +1,1 @@
-web: ./main.native $PORT
+web: ./target/bin/main $PORT
