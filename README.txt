@@ -4,7 +4,7 @@ This is the README file for the hello distribution.
 
 helo
 
-See the files INSTALL.txt for building and installation instructions. 
+See the files INSTALL.txt for building and installation instructions.
 
 
 (* OASIS_STOP *)
