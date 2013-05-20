@@ -1,0 +1,9 @@
+Heroku buildpack sample
+=======================
+
+    $ git clone http://github.com/mzp/heroku-buildpack-ocaml-sample
+    $ cd heroku-buildpack-ocaml-sample
+    $ heroku create --bulidpack https://github.com/mzp/heroku-buildpack-ocaml
+    $ git push heroku master
+    $ heroku ps:scale web=1
+
