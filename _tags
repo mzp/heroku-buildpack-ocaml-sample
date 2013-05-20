@@ -1,5 +1,5 @@
 # OASIS_START
-# DO NOT EDIT (digest: 6347abffa5df0496ba6d1a3cdf0d2efb)
+# DO NOT EDIT (digest: 5c38efddc1597e1b07a943f9cce009b9)
 # Ignore VCS directories, you can use the same kind of rule outside 
 # OASIS_START/STOP if you want to exclude directories that contains 
 # useless stuff for the build process
@@ -14,4 +14,6 @@
 "_darcs": -traverse
 "_darcs": not_hygienic
 # Executable main
+<main.{native,byte}>: pkg_nethttpd
+<*.ml{,i}>: pkg_nethttpd
 # OASIS_STOP

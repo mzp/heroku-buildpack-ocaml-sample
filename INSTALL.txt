@@ -1,5 +1,5 @@
 (* OASIS_START *)
-(* DO NOT EDIT (digest: f57b8ea92437a2f858b5ffdec61f4acd) *)
+(* DO NOT EDIT (digest: d77c5234f5ddf74bdd8bdce296d0266a) *)
 This is the INSTALL file for the hello distribution.
 
 This package uses OASIS to generate its build system. See section OASIS for
@@ -11,6 +11,7 @@ Dependencies
 In order to compile this package, you will need:
 * ocaml
 * findlib
+* nethttpd
 
 Installing
 ==========

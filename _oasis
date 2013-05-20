@@ -2,7 +2,7 @@ OASISFormat: 0.3
 Name:        hello
 Version:     1.0.0
 Synopsis:    helo
-Authors:     
+Authors:
 License:     MIT
 Plugins:     META (0.3), StdFiles (0.3), DevFiles (0.3)
 
@@ -10,4 +10,7 @@ Executable main
   Path:       .
   BuildTools: ocamlbuild
   MainIs:     main.ml
-  
+  Builddepends: nethttpd
+  CompiledObject: best
+#  ByteOpt: -w +a -warn-error +a -annot
+#  NativeOpt: -w +a -warn-error +a -annot
